@@ -22,13 +22,15 @@ def data_for_region(xls_path, region):
             break
         position +=1
 
-    for row in sheet.iter_rows(min_row=9,min_col=1, max_row=10, max_col=4):
+    for row in sheet.iter_rows(min_row=9):
         date = row[0].value
         amount = row[position].value
+        if date == None:
+            continue
         print(date,amount)
 
 
 
 
 
-data_for_region(xls_path,'Amador')
+data_for_region(xls_path,'Alameda')
