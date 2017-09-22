@@ -27,10 +27,12 @@ def data_for_region(xls_path, region):
         amount = row[position].value
         if date == None:
             continue
+        if amount == 'NA':
+            continue
         print(date,amount)
 
 
 
 
 
-data_for_region(xls_path,'Alameda')
+data_for_region(xls_path,'Amador')
