@@ -7,19 +7,12 @@ def get_row_values(worksheet, row_num):
     rows = list(worksheet.iter_rows(min_row=row_num,max_row=row_num))
     return[cell.value for cell in rows[0]]
 
-
-
-
 def data_for_region(xls_path, region):
     workbook = openpyxl.load_workbook(xls_path)
     sheet = workbook.get_sheet_by_name('Median Price')
     headings = get_row_values(sheet, 8)
 
-    position = 0
-    for heading in headings:
-        if region == heading:
-            break
-        position +=1
+    position = headings.index(region)
 
     for row in sheet.iter_rows(min_row=9):
         date = row[0].value
