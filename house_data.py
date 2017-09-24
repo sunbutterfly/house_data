@@ -18,7 +18,6 @@ def data_for_region(xls_path, region):
     position = 0
     for heading in headings:
         if region == heading:
-            print(str(position))
             break
         position +=1
 
