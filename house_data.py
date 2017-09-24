@@ -32,5 +32,5 @@ def data_for_region(xls_path, region):
 
 housedata = data_for_region(xls_path,'Amador')
 
-for key in sorted(housedata):
-    print('%s : %s' % (key,housedata[key]))
+for date, amount in sorted(housedata.items()):
+    print('%s : %s' % (date, amount))
