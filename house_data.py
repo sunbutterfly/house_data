@@ -14,6 +14,8 @@ def data_for_region(xls_path, region):
 
     position = headings.index(region)
 
+    data = {}
+
     for row in sheet.iter_rows(min_row=9):
         date = row[0].value
         amount = row[position].value
@@ -21,10 +23,10 @@ def data_for_region(xls_path, region):
             continue
         if amount == 'NA':
             continue
-        print(date,amount)
+        data[date] = amount
+    return data
 
 
 
-
-
-data_for_region(xls_path,'Amador')
+housedata = data_for_region(xls_path,'Amador')
+print(housedata)
