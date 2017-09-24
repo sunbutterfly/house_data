@@ -28,5 +28,9 @@ def data_for_region(xls_path, region):
 
 
 
+
+
 housedata = data_for_region(xls_path,'Amador')
-print(housedata)
+
+for key in sorted(housedata):
+    print('%s : %s' % (key,housedata[key]))
