@@ -30,3 +30,13 @@ housedata = data_for_region(xls_path,'Del Norte')
 
 for date, amount in sorted(housedata.items()):
    print('{0:%m}/{0:%Y}: ${1:.2f}'.format(date,amount))
+
+
+import matplotlib.pyplot as plt
+
+x = list(housedata.keys())
+y = list(housedata.values())
+
+plt.figure()
+plt.plot(x,y)
+plt.show()
