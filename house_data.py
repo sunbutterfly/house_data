@@ -26,11 +26,7 @@ def data_for_region(xls_path, region):
         data[date] = amount
     return data
 
-
-
-
-
 housedata = data_for_region(xls_path,'Del Norte')
 
 for date, amount in sorted(housedata.items()):
-   print('{0:%m}{1}{2:%y}{3}{4}{5:.2f}'.format(date,'/', date,' : ','$',amount))
+   print('{0:%m}/{0:%Y}: ${1:.2f}'.format(date,amount))
