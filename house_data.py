@@ -26,7 +26,7 @@ def data_for_region(xls_path, region):
         data[date] = amount
     return data
 
-housedata = data_for_region(xls_path,'Del Norte')
+housedata = data_for_region(xls_path,'San Mateo')
 
 for date, amount in sorted(housedata.items()):
    print('{0:%m}/{0:%Y}: ${1:.2f}'.format(date,amount))
@@ -38,5 +38,9 @@ x = list(housedata.keys())
 y = list(housedata.values())
 
 plt.figure()
-plt.plot(x,y)
+plt.plot(x,y,'k.')
+plt.title('House Data By Region')
+plt.xlabel('Date')
+plt.ylabel('Amount')
 plt.show()
+
