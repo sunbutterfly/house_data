@@ -1,5 +1,5 @@
 
-
+import numpy as np
 import openpyxl
 xls_path = '/Users/laura/desktop/2017-08_Median_Prices_of_Existing_Detached_Homes_(Historical_Data).xlsx'
 
@@ -16,7 +16,7 @@ def data_for_region(xls_path, region):
 
     data = {}
 
-    for row in sheet.iter_rows(min_row=9):
+    for row in sheet.iter_rows(min_row=285):
         date = row[0].value
         amount = row[position].value
         if date == None:
@@ -31,14 +31,36 @@ housedata = data_for_region(xls_path,'San Mateo')
 for date, amount in sorted(housedata.items()):
    print('{0:%m}/{0:%Y}: ${1:.2f}'.format(date,amount))
 
+x_raw_val = list(housedata.keys())
+y_raw_val = list(housedata.values())
+
+x_train_val = [
+    d.month/12 + d.year
+    for d in x_raw_val
+]
+
+x_train = np.array([x_train_val]).reshape(-1,1)
+y_train = y_raw_val
+
+
 
 import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
 
-x = list(housedata.keys())
-y = list(housedata.values())
+model = LinearRegression()
+model.fit(x_train,y_train)
+
+def f(x):
+    m, b = model.coef_[0], model.intercept_
+    return m * x + b
+
+fitted_x = x_train_val
+fitted_y = [f(x) for x in fitted_x]
+
 
 plt.figure()
-plt.plot(x,y,'k.')
+plt.plot(x_train,y_train,'k.')
+plt.plot(fitted_x,fitted_y,'r')
 plt.title('House Data By Region')
 plt.xlabel('Date')
 plt.ylabel('Amount')
