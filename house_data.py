@@ -26,7 +26,18 @@ def data_for_region(xls_path, region):
         data[date] = amount
     return data
 
-housedata = data_for_region(xls_path,'San Mateo')
+
+user_region_input = input('Please Enter A Region You Would Like To Know:')
+user_region = str(user_region_input)
+user_prediction_month_input = input('Please Enter A Future Month:')
+user_prediction_year_input = input('Please Enter A Future Or Current Year:')
+user_prediction_month = int(user_prediction_month_input)/12
+user_prediction_year = int(user_prediction_year_input)
+user_prediction = user_prediction_month + user_prediction_year
+
+
+
+housedata = data_for_region(xls_path,user_region)
 
 for date, amount in sorted(housedata.items()):
    print('{0:%m}/{0:%Y}: ${1:.2f}'.format(date,amount))
@@ -49,6 +60,10 @@ from sklearn.linear_model import LinearRegression
 
 model = LinearRegression()
 model.fit(x_train,y_train)
+
+test_housing_data = np.array([[user_prediction]])
+predited_price = model.predict(test_housing_data)[0]
+print('The predicted median housing price for {0} should be ${1:.2f}'.format(user_region,predited_price) )
 
 def f(x):
     m, b = model.coef_[0], model.intercept_
