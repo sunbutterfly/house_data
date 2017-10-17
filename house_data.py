@@ -31,28 +31,29 @@ workbook = openpyxl.load_workbook(xls_path)
 sheet = workbook.get_sheet_by_name('Median Price')
 
 def heading_values_for_user(worksheet, row_num):
-    rows = list(worksheet.iter_rows(min_row=row_num,min_col=2,max_col=56))
+    rows = list(worksheet.iter_rows(min_row=row_num,min_col=2,max_col=57))
     return[cell.value for cell in rows[0]]
 
 
 headings = heading_values_for_user(sheet, 8)
-headings.sort()
+display_headings = [heading for heading in headings if heading != None]
+display_headings.sort()
 
-print('Region List:' + '\n' + '\n'.join(headings))
+print('Region List:' + '\n' + '\n'.join(display_headings))
 
 
-user_region_input = input('Please enter a region you would like to know from the list:')
-user_region = str(user_region_input)
-if user_region_input not in headings:
+user_region= input('Please enter a region you would like to know from the list:')
+
+while user_region not in headings:
    print(user_region+ ' ' +'is not in the list')
-   user_region_input = input('Please enter a region you would like to know from the list:')
+   user_region = input('Please enter a region you would like to know from the list:')
 
-user_region = str(user_region_input)
+
 user_prediction_month_input = input('Please enter a month:')
 user_prediction_year_input = input('Please enter a future or current year:')
 user_prediction_month = int(user_prediction_month_input)
 user_prediction_year = int(user_prediction_year_input)
-user_prediction = user_prediction_month + user_prediction_year
+user_prediction = (user_prediction_month/12) + user_prediction_year
 
 
 housedata = data_for_region(xls_path,user_region)
